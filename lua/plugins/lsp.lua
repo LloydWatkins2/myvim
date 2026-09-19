@@ -17,6 +17,16 @@ return {
       handlers = {
         ["$/progress"] = function(_, result, ctx) end,
       },
+      cmd = {
+        "jdtls",
+        -- Pass each JVM argument with the --jvm-arg= prefix
+        "--jvm-arg=-XX:+UseParallelGC",
+        "--jvm-arg=-XX:GCTimeRatio=4",
+        "--jvm-arg=-XX:AdaptiveSizePolicyWeight=90",
+        "--jvm-arg=-Dsun.zip.disableMemoryMapping=true",
+        "--jvm-arg=-Xmx4G",
+        "--jvm-arg=-Xms100m",
+      },
       -- Disable aggressive formatting on save
       on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
