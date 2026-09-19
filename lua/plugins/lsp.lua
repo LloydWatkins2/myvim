@@ -9,9 +9,11 @@ return {
           "-j=2", -- Giới hạn chỉ dùng 2 luồng CPU/Disk thay vì vắt cạn hệ thống
         },
       },
+      pyright = {},
+      ruff_lsp = {},
     },
   },
-  dependencies = { "mason-org/mason.nvim" },
+  dependencies = { "mason-org/mason.nvim", "williamboman/mason-lspconfig.nvim" },
   config = function()
     require("lspconfig").jdtls.setup({
       handlers = {
@@ -65,7 +67,7 @@ return {
       },
     })
 
-    require("lspconfig").pylsp.setup({
+    require("lspconfig").pyright.setup({
       handlers = {
         ["$/progress"] = function(_, result, ctx) end,
       },
@@ -74,35 +76,30 @@ return {
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
 
-        -- Manual format keybind with external formatters (async to avoid blocking)
+        -- Manual format keybind with ruff
         vim.keymap.set("n", "<leader>fl", function()
-          -- Use external formatters instead of LSP
-          vim.cmd("silent !black % && isort %")
+          vim.cmd("silent !ruff format %")
           vim.cmd("e!") -- Reload file after formatting
         end, { noremap = true, buffer = bufnr })
       end,
-      -- Reduce pylsp resource consumption and disable expensive plugins
       settings = {
-        pylsp = {
-          -- Disable all formatters from running on save
-          formatCommand = {},
-          plugins = {
-            -- Disable expensive linters/formatters that thrash disk
-            pycodestyle = { enabled = false },
-            pydocstyle = { enabled = false },
-            autopep8 = { enabled = false },
-            yapf = { enabled = false },
-            black = { enabled = false }, -- Don't format on save
-            isort = { enabled = false }, -- Don't sort imports on save
-            pylint = { enabled = false }, -- Disable pylint (slow)
-            flake8 = { enabled = false }, -- Disable flake8 (slow)
-            mccabe = { enabled = false }, -- Disable McCabe complexity checker
-            -- Keep these enabled but lightweight
-            pyflakes = { enabled = true }, -- Fast syntax checking
-            rope = { enabled = false }, -- Disable rope (can be slow)
-            -- Optionally use fast linters only
-            pyls_mypy = { enabled = false }, -- mypy is slow, disable
+        python = {
+          analysis = {
+            typeCheckingMode = "basic",
+            diagnosticMode = "openFilesOnly",
+            autoImportCompletions = true,
           },
+        },
+      },
+    })
+
+    require("lspconfig").ruff_lsp.setup({
+      handlers = {
+        ["$/progress"] = function(_, result, ctx) end,
+      },
+      init_options = {
+        settings = {
+          args = {},
         },
       },
     })

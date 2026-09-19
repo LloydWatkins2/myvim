@@ -147,3 +147,9 @@ map("v", "<C-y>", "<C-r>", { desc = "Redo" })
 vim.keymap.set("n", "<leader>bh", function()
   Snacks.dashboard()
 end, { desc = "Open Dashboard" })
+
+-- Diagnostics
+vim.keymap.set("n", "<leader>dd", vim.diagnostic.open_float, { desc = "Show diagnostic" })
+vim.keymap.set("n", "<leader>dq", vim.diagnostic.setloclist, { desc = "Diagnostics list" })
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev diagnostic" })
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
