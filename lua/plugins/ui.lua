@@ -1,17 +1,21 @@
 return {
   {
-    "folke/tokyonight.nvim",
+    "catppuccin/nvim",
+    name = "catppuccin",
     opts = {
-      style = "night",
-      transparent = false,
+      flavour = "mocha", -- Sử dụng biến thể mocha
+      transparent_background = false,
       styles = {
         sidebars = "transparent",
-        keywords = { bold = true },
-        functions = { bold = true },
         floats = "transparent",
+        keywords = { "bold" }, -- Cú pháp của catppuccin sử dụng mảng chuỗi
+        functions = { "bold" },
       },
-      on_colors = function(colors)
-        colors.bg_statusline = colors.none -- To check if its working try something like "#ff00ff" instead of colors.none
+      -- Tùy chỉnh màu nền cho statusline (tương đương on_colors của tokyonight)
+      custom_highlights = function(colors)
+        return {
+          StatusLine = { bg = colors.none },
+        }
       end,
     },
   },
@@ -19,7 +23,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "tokyonight",
+      colorscheme = "catppuccin",
     },
   },
 }
