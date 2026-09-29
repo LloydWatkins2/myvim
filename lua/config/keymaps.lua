@@ -40,14 +40,6 @@ map("n", "<C-x>", '"+dd', {
 -- FIND & REPLACE (Ctrl + H)
 -- ========================================
 
-map("n", "<C-h>", ":%s/", {
-  desc = "Find and replace",
-})
-
-map("i", "<C-h>", "<Esc>:%s/", {
-  desc = "Find and replace",
-})
-
 -- ========================================
 -- CLOSE BUFFER / FILE (Ctrl + W)
 -- ========================================
