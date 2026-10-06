@@ -3,7 +3,7 @@ return {
     "catppuccin/nvim",
     name = "catppuccin",
     opts = {
-      flavour = "mocha", -- Sử dụng biến thể mocha
+      flavour = "latte", -- Sử dụng biến thể mocha
       transparent_background = false,
       styles = {
         sidebars = "transparent",
@@ -23,7 +23,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "catppuccin-latte",
     },
   },
 }
